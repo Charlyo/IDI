@@ -3,9 +3,14 @@
 
     <string name="app_name">FiltR</string>
     <string name="action_settings">Settings</string>
-    <string name="edit_message">Enter a message</string>
-    <string name="button_send">Send</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="action_search">Buscar</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="titol_app">FiltR</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_activyty_arxiu">activyty_arxiu</string>
+    <string name="title_activity_arxiu">arxiu</string>
+    <string name="text_camera">Has triat camera</string>
+    <string name="text_arxiu">Has triat arxiu</string>
+    <string name="title_activity_activity_arxiu">activity_arxiu</string>
+    <string name="title_activity_activity_camera">activity_camera</string>
 </resources>

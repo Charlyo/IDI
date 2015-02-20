@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.carles.filtr" >
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true">
+
+    </uses-feature>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+        android:theme="@style/Theme.AppCompat" >
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -16,8 +19,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
+            android:name=".arxiu"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_arxiu"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/FullscreenTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.carles.filtr.MainActivity" />
+        </activity>
+        <activity
+            android:name=".camera"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_camera"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".activity_arxiu"
+            android:label="@string/title_activity_activity_arxiu"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.carles.filtr.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity_camera"
+            android:label="@string/title_activity_activity_camera"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

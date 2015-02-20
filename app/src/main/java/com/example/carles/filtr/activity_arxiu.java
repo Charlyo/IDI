@@ -1,25 +1,25 @@
 package com.example.carles.filtr;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class MainActivity extends ActionBarActivity {
-    public static final String EXTRA_MESSAGE = "com.example.carles.filtr.MESSAGE";
+
+public class activity_arxiu extends ActionBarActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_arxiu);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        return false;
+        getMenuInflater().inflate(R.menu.menu_activity_arxiu, menu);
+        return true;
     }
 
     @Override
@@ -27,16 +27,13 @@ public class MainActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return false;
-    }
+        int id = item.getItemId();
 
-    public void swapcamera(View view) {
-        Intent intent = new Intent(MainActivity.this, activity_camera.class);
-        startActivity(intent);
-    }
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
 
-    public void swapfile(View view) {
-        Intent intent = new Intent(MainActivity.this, activity_arxiu.class);
-        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }

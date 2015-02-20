@@ -1,20 +1,38 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/edit_message"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/titol_app"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_message"
+        android:text="@string/titol_app"
+        android:textSize="50sp"
+        android:layout_marginTop="120px"
+        android:layout_marginLeft="250px"
     />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_send"
-        android:onClick="sendMessage"
+        android:id="@+id/boto_arxiu"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="800px"
+        android:layout_marginLeft="430px"
+        android:onClick="swapfile"
+        android:background="@drawable/imatge_arxiu"
     />
-</LinearLayout>
+
+    <Button
+        android:id="@+id/boto_camera"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="800px"
+        android:onClick="swapcamera"
+        android:layout_marginLeft="90px"
+        android:background="@drawable/imatge_camera"
+    />
+
+
+
+</RelativeLayout>
