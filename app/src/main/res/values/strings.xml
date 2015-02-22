@@ -13,4 +13,7 @@
     <string name="text_arxiu">Has triat arxiu</string>
     <string name="title_activity_activity_arxiu">activity_arxiu</string>
     <string name="title_activity_activity_camera">activity_camera</string>
+    <string name="title_activity_activity_validate">activity_validate</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

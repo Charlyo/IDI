@@ -9,16 +9,16 @@
         android:layout_height="wrap_content"
         android:text="@string/titol_app"
         android:textSize="50sp"
-        android:layout_marginTop="120px"
-        android:layout_marginLeft="250px"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="125dp"
     />
 
     <Button
         android:id="@+id/boto_arxiu"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="800px"
-        android:layout_marginLeft="430px"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="215dp"
         android:onClick="swapfile"
         android:background="@drawable/imatge_arxiu"
     />
@@ -27,12 +27,10 @@
         android:id="@+id/boto_camera"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="800px"
+        android:layout_marginTop="400dp"
         android:onClick="swapcamera"
-        android:layout_marginLeft="90px"
+        android:layout_marginLeft="45dp"
         android:background="@drawable/imatge_camera"
     />
-
-
 
 </RelativeLayout>
