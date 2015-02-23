@@ -26,6 +26,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.carles.filtr.MainActivity" />
         </activity>
+        <activity
+            android:name=".activity_filtres"
+            android:label="@string/title_activity_activity_filtres"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.carles.filtr.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

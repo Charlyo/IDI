@@ -1,26 +1,24 @@
 package com.example.carles.filtr;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 
-public class activity_validate extends ActionBarActivity {
+public class activity_filtres extends ActionBarActivity {
     String path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_validate);
+        setContentView(R.layout.activity_filtres);
         Bundle bundle = getIntent().getExtras();
-        path = bundle.getString("imatge_guardada");
+        path = bundle.getString("path");
         Bitmap thumbnail = (BitmapFactory.decodeFile(path));
-        ImageView imageView = (ImageView) findViewById(R.id.viewImage);
+        ImageView imageView = (ImageView) findViewById(R.id.foto_back);
         imageView.setImageBitmap(thumbnail);
     }
 
@@ -28,7 +26,7 @@ public class activity_validate extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_validate, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_filtres, menu);
         return true;
     }
 
@@ -45,11 +43,5 @@ public class activity_validate extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void swapfilter(View view) {
-        Intent intent = new Intent(activity_validate.this, activity_filtres.class);
-        intent.putExtra("path", path);
-        startActivity(intent);
     }
 }

@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity {
 
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             bitmapOptions);
-                    Intent intent = new Intent(MainActivity.this, activity_validate.class);
+                    Intent intent = new Intent(MainActivity.this, activity_filtres.class);
                     startActivity(intent);
                     String path = android.os.Environment
                             .getExternalStorageDirectory()
