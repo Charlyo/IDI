@@ -1,62 +1,85 @@
-<HorizontalScrollView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="0dp"
+        android:id="@+id/photo_back"/>
+
+    <HorizontalScrollView
+        android:layout_height="80dp"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true">
+
+
     <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
+        style="?android:attr/borderlessButtonStyle">
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="?android:attr/borderlessButtonStyle"
-        >
+        android:layout_marginTop="4dp"
+        android:onClick="original"
+        android:text="@string/original"
+    />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:drawableTop="@drawable/prova_filtre"
+        android:layout_marginTop="4dp"
+        android:onClick="blackandwhite"
+        android:text="@string/Blancinegre"/>
 
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/filtre1"
-            android:layout_marginTop="4dp"
-            android:drawableTop="@drawable/prova_filtre"
-        />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginTop="4dp"
+        android:onClick="sepia"
+        android:text="@string/Sepia"/>
 
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/filtre2"
-         />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginTop="4dp"
+        android:onClick="invert"
+        android:text="@string/invert"/>
 
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/filtre3"
-         />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:onClick="mitjana"
+        android:layout_marginTop="4dp"
+        android:text="@string/mitjana"/>
 
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/filtre4"
-        />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginTop="4dp"
+        android:text="@string/filtre5"/>
 
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/filtre5"
-            android:layout_marginTop="4dp"
-        />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginTop="4dp"
+        android:text="@string/filtre6"/>
 
-        <Button
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/filtre6"
-            android:layout_marginTop="4dp"
-        />
-    </LinearLayout>
+</LinearLayout>
+
 </HorizontalScrollView>
+
+</RelativeLayout>

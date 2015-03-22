@@ -68,12 +68,11 @@ public class MainActivity extends ActionBarActivity {
 
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             bitmapOptions);
-                    Intent intent = new Intent(MainActivity.this, activity_filtres.class);
-                    startActivity(intent);
+
                     String path = android.os.Environment
                             .getExternalStorageDirectory()
                             + File.separator
-                            + "Phoenix" + File.separator + "default";
+                            + "DCIM" + File.separator + "Camera";
                     File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
                     try {
                         OutputStream outFile = new FileOutputStream(file);
@@ -86,6 +85,9 @@ public class MainActivity extends ActionBarActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                Intent intent = new Intent(MainActivity.this, activity_filtres.class);
+                intent.putExtra("path", f.getAbsolutePath());
+                startActivity(intent);
             } else if (requestCode == 2) {
                 Uri selectedImage = data.getData();
                 String[] filePath = { MediaStore.Images.ImageColumns.DATA };

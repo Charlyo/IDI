@@ -16,10 +16,11 @@
     <string name="title_activity_activity_validate">activity_validate</string>
     <string name="title_activity_activity_filtres">activity_filtres</string>
 
-    <string name="filtre1">Filtre 1</string>
-    <string name="filtre2">Filtre 2</string>
-    <string name="filtre3">Filtre 3</string>
-    <string name="filtre4">Filtre 4</string>
+    <string name="Blancinegre">BandW</string>
+    <string name="Sepia">Sepia</string>
+    <string name="invert">Invertir</string>
+    <string name="mitjana">Mitjana</string>
     <string name="filtre5">Filtre 5</string>
     <string name="filtre6">Filtre 6</string>
+    <string name="original">Original</string>
 </resources>
