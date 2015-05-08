@@ -16,11 +16,19 @@
     <string name="title_activity_activity_validate">activity_validate</string>
     <string name="title_activity_activity_filtres">activity_filtres</string>
 
-    <string name="Blancinegre">BandW</string>
+    <string name="Greyscale">Greyscale</string>
     <string name="Sepia">Sepia</string>
+    <string name="Bandw">BlanciNegre</string>
     <string name="invert">Invertir</string>
     <string name="mitjana">Mitjana</string>
-    <string name="filtre5">Filtre 5</string>
-    <string name="filtre6">Filtre 6</string>
+    <string name="Emboss">Emboss</string>
+    <string name="Sharpen">Sharpen</string>
+    <string name="EdgeDetection">Edge Detection</string>
+    <string name="Random">Random</string>
     <string name="original">Original</string>
+    <string name="blur">Blur</string>
+    <string name="polaroidcolor">Polaroid</string>
+    <string name="meanfiltre">Filtre mitjana</string>
+    <string name="Acceptar">Acceptar</string>
+    <string name="Rebutjar">Rebutjar</string>
 </resources>

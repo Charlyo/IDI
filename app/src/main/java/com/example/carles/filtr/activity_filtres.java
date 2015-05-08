@@ -3,174 +3,343 @@ package com.example.carles.filtr;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.Matrix4f;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
+import android.renderscript.ScriptIntrinsicColorMatrix;
+import android.renderscript.ScriptIntrinsicConvolve3x3;
+import android.renderscript.ScriptIntrinsicConvolve5x5;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.graphics.Color;
+import android.view.View;
 import android.widget.ImageView;
-import android.view.*;
+import android.widget.LinearLayout;
+
+import java.util.Random;
+
+import static android.renderscript.Allocation.createFromBitmap;
 
 
 public class activity_filtres extends ActionBarActivity {
-    String path;
-    Bitmap copia;
-    Bitmap original;
+
+    Allocation allin;
+    Allocation allout;
+    Bitmap anterior, copia, out;
+    Boolean butons_actius = true;
+    Boolean butons_aplicar_actius = false;
+    float[] filtre = new float[9];
+    float[] filtre5 = new float[25];
     ImageView imageView;
-    int r, g, b;
-    int outr, outg, outb;
-    double[][] kernel = new double[3][3];
-
-    public void agafa_rgb(int i, int j) {
-
-        r = copia.getPixel(i,j) & 0xff0000 >> 16;
-        g = copia.getPixel(i,j) & 0x00ff00 >> 8;
-        b = copia.getPixel(i,j) & 0x0000ff;
-    }
+    LinearLayout mlay2 = (LinearLayout) findViewById(R.id.linearLayoutaplicarfiltre);
+    Matrix4f kernelcolor = new Matrix4f();
+    Random rand = new Random();
+    RenderScript rs;
+    ScriptIntrinsicConvolve3x3 filtre3;
+    ScriptIntrinsicConvolve5x5 filtre5x5;
+    ScriptIntrinsicColorMatrix filtrecolor;
+    ScriptIntrinsicBlur filtreblur;
+    String path;
 
     public void invert(View view) {
-        for (int i = 0; i < copia.getWidth(); ++i) {
-            for (int j = 0; j < copia.getHeight(); ++j) {
-                agafa_rgb(i, j);
-                copia.setPixel(i, j, Color.rgb(255-r, 255-g, 255-b));
-            }
-        }
-        imageView.setImageBitmap(copia);
+        rs = RenderScript.create(this);
+        out = copia.copy(copia.getConfig(), true);
+        kernelcolor.set(0, 0, -1);
+        kernelcolor.set(0, 1, 0);
+        kernelcolor.set(0, 2, 0);
+        kernelcolor.set(0, 3, 0);
+        kernelcolor.set(1, 0, 0);
+        kernelcolor.set(1, 1, -1);
+        kernelcolor.set(1, 2, 0);
+        kernelcolor.set(1, 3, 0);
+        kernelcolor.set(2, 0, 0);
+        kernelcolor.set(2, 1, 0);
+        kernelcolor.set(2, 2, -1);
+        kernelcolor.set(2, 3, 0);
+        kernelcolor.set(3, 0, 1);
+        kernelcolor.set(3, 1, 1);
+        kernelcolor.set(3, 2, 1);
+        kernelcolor.set(3, 3, 0);
+        allin = Allocation.createFromBitmap(rs, copia,
+                Allocation.MipmapControl.MIPMAP_NONE,
+                Allocation.USAGE_SCRIPT);
+        allout = Allocation.createTyped(rs, allin.getType());
+        filtrecolor = ScriptIntrinsicColorMatrix.create(rs, Element.U8_4(rs));
+        filtrecolor.setColorMatrix(kernelcolor);
+        filtrecolor.forEach(allin, allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        rs.destroy();
+        afegir_botons_aplicar_filtre(view);
     }
+
+    public void greyscale(View view) {
+
+        rs = RenderScript.create(this);
+        out = copia.copy(copia.getConfig(), true);
+        kernelcolor.set(0, 0, 0.333f);
+        kernelcolor.set(0, 1, 0.333f);
+        kernelcolor.set(0, 2, 0.333f);
+        kernelcolor.set(1, 0, 0.333f);
+        kernelcolor.set(1, 1, 0.333f);
+        kernelcolor.set(1, 2, 0.333f);
+        kernelcolor.set(2, 0, 0.333f);
+        kernelcolor.set(2, 1, 0.333f);
+        kernelcolor.set(2, 2, 0.333f);
+        kernelcolor.set(3, 0, 0);
+        kernelcolor.set(3, 1, 0);
+        kernelcolor.set(3, 2, 0);
+        kernelcolor.set(3, 3, 1);
+        allin = Allocation.createFromBitmap(rs, copia,
+                Allocation.MipmapControl.MIPMAP_NONE,
+                Allocation.USAGE_SCRIPT);
+        allout = Allocation.createTyped(rs, allin.getType());
+        filtrecolor = ScriptIntrinsicColorMatrix.create(rs, Element.U8_4(rs));
+        filtrecolor.setColorMatrix(kernelcolor);
+        filtrecolor.forEach(allin, allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        rs.destroy();
+        afegir_botons_aplicar_filtre(view);
+    }
+
+    public void polarid(View view) {
+        rs = RenderScript.create(this);
+        out = copia.copy(copia.getConfig(), true);
+        kernelcolor.set(0, 0, 1.438f);
+        kernelcolor.set(0, 1, -0.062f);
+        kernelcolor.set(0, 2, -0.062f);
+        kernelcolor.set(1, 0, -0.122f);
+        kernelcolor.set(1, 1, 1.378f);
+        kernelcolor.set(1, 2, -0.122f);
+        kernelcolor.set(2, 0, -0.016f);
+        kernelcolor.set(2, 1, -0.016f);
+        kernelcolor.set(2, 2, 1.483f);
+        kernelcolor.set(3, 0, -0.03f);
+        kernelcolor.set(3, 1, 0.05f);
+        kernelcolor.set(3, 2, -0.02f);
+        kernelcolor.set(3, 3, 0);
+        allin = Allocation.createFromBitmap(rs, copia,
+                Allocation.MipmapControl.MIPMAP_NONE,
+                Allocation.USAGE_SCRIPT);
+        allout = Allocation.createTyped(rs, allin.getType());
+        filtrecolor = ScriptIntrinsicColorMatrix.create(rs, Element.U8_4(rs));
+        filtrecolor.setColorMatrix(kernelcolor);
+        filtrecolor.forEach(allin, allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        rs.destroy();
+        afegir_botons_aplicar_filtre(view);
+    }
+
     public void blackandwhite(View view) {
-        for (int i = 0; i < copia.getWidth(); ++i) {
-            for (int j = 0; j < copia.getHeight(); ++j) {
-                agafa_rgb(i, j);
-                copia.setPixel(i, j, Color.rgb((r+g+b)/3, (r+g+b)/3, (r+g+b)/3));
-            }
-        }
-        imageView.setImageBitmap(copia);
+        rs = RenderScript.create(this);
+        out = copia.copy(copia.getConfig(), true);
+        kernelcolor.set(0, 0, 1.5f);
+        kernelcolor.set(0, 1, 1.5f);
+        kernelcolor.set(0, 2, 1.5f);
+        kernelcolor.set(1, 0, 1.5f);
+        kernelcolor.set(1, 1, 1.5f);
+        kernelcolor.set(1, 2, 1.5f);
+        kernelcolor.set(2, 0, 1.5f);
+        kernelcolor.set(2, 1, 1.5f);
+        kernelcolor.set(2, 2, 1.5f);
+        kernelcolor.set(3, 0, -1);
+        kernelcolor.set(3, 1, -1);
+        kernelcolor.set(3, 2, -1);
+        kernelcolor.set(3, 3, 0);
+        allin = Allocation.createFromBitmap(rs, copia,
+                Allocation.MipmapControl.MIPMAP_NONE,
+                Allocation.USAGE_SCRIPT);
+        allout = Allocation.createTyped(rs, allin.getType());
+        filtrecolor = ScriptIntrinsicColorMatrix.create(rs, Element.U8_4(rs));
+        filtrecolor.setColorMatrix(kernelcolor);
+        filtrecolor.forEach(allin, allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        rs.destroy();
+        afegir_botons_aplicar_filtre(view);
     }
 
     public void original(View view) {
-        copia = original.copy(original.getConfig(), true);
-        imageView.setImageBitmap(copia);
+        out = (BitmapFactory.decodeFile(path));
+        imageView.setImageBitmap(out);
+        afegir_botons_aplicar_filtre(view);
     }
 
     public void sepia(View view) {
-        for (int i = 0; i < copia.getWidth(); ++i) {
-            for (int j = 0; j < copia.getHeight(); ++j) {
-                agafa_rgb(i, j);
-                outr = r*4/10+g*8/10+b*2/10;
-                outg = r*4/10+g*7/10+b*2/10;
-                outb = r*3/10+g*5/10+b/10;
-                if (outr > 255) outr = 255;
-                if (outg > 255) outg = 255;
-                if (outb > 255) outb = 255;
-                copia.setPixel(i, j, Color.rgb(outr, outg ,outb));
-            }
-        }
-        imageView.setImageBitmap(copia);
+        rs = RenderScript.create(this);
+        out = copia.copy(copia.getConfig(), true);
+        kernelcolor.set(0, 0, 0.393f);
+        kernelcolor.set(0, 1, 0.349f);
+        kernelcolor.set(0, 2, 0.272f);
+        kernelcolor.set(1, 0, 0.769f);
+        kernelcolor.set(1, 1, 0.686f);
+        kernelcolor.set(1, 2, 0.534f);
+        kernelcolor.set(2, 0, 0.189f);
+        kernelcolor.set(2, 1, 0.168f);
+        kernelcolor.set(2, 2, 0.131f);
+        kernelcolor.set(3, 0, 0);
+        kernelcolor.set(3, 1, 0);
+        kernelcolor.set(3, 2, 0);
+        kernelcolor.set(3, 3, 1);
+        allin = Allocation.createFromBitmap(rs, copia,
+                Allocation.MipmapControl.MIPMAP_NONE,
+                Allocation.USAGE_SCRIPT);
+        allout = Allocation.createTyped(rs, allin.getType());
+        filtrecolor = ScriptIntrinsicColorMatrix.create(rs, Element.U8_4(rs));
+        filtrecolor.setColorMatrix(kernelcolor);
+        filtrecolor.forEach(allin, allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        rs.destroy();
+        afegir_botons_aplicar_filtre(view);
     }
 
-    public void mitjana5() {
-        /*for (int i = -1; i < 2; ++i) {
-            for (int j = -1; j < 2; ++j) {
-                agafa_rgb(x+i, y+j);
-                outr += r;
-                outb += b;
-                outg += g;
+    public void desapareixbutons(View view) {
+        LinearLayout mlay = (LinearLayout) findViewById(R.id.linearbutons);
+        if (butons_actius) {
+            mlay.setVisibility(View.GONE);
+            butons_actius = false;
+            mlay.setClickable(false);
+            if (butons_aplicar_actius) {
+                treure_botons_aplicar_filtre(view);
+                butons_aplicar_actius = true;
             }
+        } else {
+            mlay.setVisibility(View.VISIBLE);
+            butons_actius = true;
+            mlay.setClickable(true);
+            if (butons_aplicar_actius) afegir_botons_aplicar_filtre(view);
         }
-
-        outr /=25;
-        outg /=25;
-        outb /=25;*/
-        int SIZE = 3;
-        int width = copia.getWidth();
-        int height = copia.getHeight();
-        Bitmap result = Bitmap.createBitmap(width, height, copia.getConfig());
-
-        int A, R, G, B;
-        int sumR, sumG, sumB;
-        int[][] pixels = new int[3][3];
-
-        for (int y = 0; y < height - 2; ++y) {
-            for (int x = 0; x < width - 2; ++x) {
-
-                // get pixel matrix
-                for (int i = 0; i < SIZE; ++i) {
-                    for (int j = 0; j < SIZE; ++j) {
-                        pixels[i][j] = copia.getPixel(x + i, y + j);
-                    }
-                }
-
-                // get alpha of center pixel
-                A = Color.alpha(pixels[1][1]);
-
-                // init color sum
-                sumR = sumG = sumB = 0;
-
-                // get sum of RGB on matrix
-                for (int i = 0; i < SIZE; ++i) {
-                    for (int j = 0; j < SIZE; ++j) {
-                        sumR += (Color.red(pixels[i][j]) * kernel[i][j]);
-                        sumG += (Color.green(pixels[i][j]) *kernel[i][j]);
-                        sumB += (Color.blue(pixels[i][j]) * kernel[i][j]);
-                    }
-                }
-
-                // get final Red
-                R = (sumR / 2);
-                if (R < 0) {
-                    R = 0;
-                } else if (R > 255) {
-                    R = 255;
-                }
-
-                // get final Green
-                G = (sumG / 2);
-                if (G < 0) {
-                    G = 0;
-                } else if (G > 255) {
-                    G = 255;
-                }
-
-                // get final Blue
-                B = (sumB / 2);
-                if (B < 0) {
-                    B = 0;
-                } else if (B > 255) {
-                    B = 255;
-                }
-
-                // apply new pixel
-                result.setPixel(x + 1, y + 1, Color.argb(A, R, G, B));
-            }
-        }
-        copia = result;
-        imageView.setImageBitmap(copia);
     }
 
-    public void mitjana(View view) {
-        /*for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j< 3; ++j) {
-                kernel[i][j] = -1;
-            }
+    public void afegir_botons_aplicar_filtre(View view) {
+        mlay2.setVisibility(View.VISIBLE);
+        butons_aplicar_actius = true;
+        mlay2.setClickable(true);
+    }
+
+    public void treure_botons_aplicar_filtre(View view) {
+        mlay2.setVisibility(View.GONE);
+        butons_aplicar_actius = false;
+        mlay2.setClickable(false);
+        anterior = copia.copy(copia.getConfig(), true);
+        copia = out.copy(out.getConfig(), true);
+    }
+
+    public void desfes_filtre(View view) {
+        out = copia.copy(copia.getConfig(), true);
+        imageView.setImageBitmap(out);
+        treure_botons_aplicar_filtre(view);
+    }
+
+    public void enrere_filtre() {
+        mlay2.setVisibility(View.GONE);
+        butons_aplicar_actius = false;
+        mlay2.setClickable(false);
+        out = anterior.copy(anterior.getConfig(), true);
+        imageView.setImageBitmap(out);
+    }
+
+    public void Blur(View view) {
+        rs = RenderScript.create(this);
+        out = copia.copy(copia.getConfig(), true);
+        allin = Allocation.createFromBitmap(rs, copia,
+                Allocation.MipmapControl.MIPMAP_NONE,
+                Allocation.USAGE_SCRIPT);
+        allout = Allocation.createTyped(rs, allin.getType());
+        filtreblur = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+        filtreblur.setInput(allin);
+        filtreblur.setRadius(11);
+        filtreblur.forEach(allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        afegir_botons_aplicar_filtre(view);
+    }
+
+    public void emboss(View view) {
+        filtre[0] = 2;
+        filtre[1] = 0;
+        filtre[2] = 0;
+        filtre[3] = 0;
+        filtre[4] = -1;
+        filtre[5] = 0;
+        filtre[6] = 0;
+        filtre[7] = 0;
+        filtre[8] = -1;
+        filtres3x3(view);
+        afegir_botons_aplicar_filtre(view);
+    }
+
+    public void sharpen(View view) {
+        filtre[0] = 1;
+        filtre[1] = 1;
+        filtre[2] = 1;
+        filtre[3] = 1;
+        filtre[4] = -7;
+        filtre[5] = 1;
+        filtre[6] = 1;
+        filtre[7] = 1;
+        filtre[8] = 1;
+        filtres3x3(view);
+        afegir_botons_aplicar_filtre(view);
+    }
+
+    public void meanfilter(View view) {
+        for (int i = 0; i < 25; i++) {
+            filtre5[i] = 1 / 25f;
         }
+        filtres5x5(view);
+        afegir_botons_aplicar_filtre(view);
+    }
 
-        kernel[1][1]= 8;*/
-        kernel[0][0] = 1;
-        kernel[0][1] = 0;
-        kernel[0][2] = 0;
-        kernel[1][0] = 0;
-        kernel[1][1] = 1;
-        kernel[1][2] = 0;
-        kernel[2][0] = 0;
-        kernel[2][1] = 0;
-        kernel[2][2] = 1;
+    public void edgedetection(View view) {
+        for (int i = 0; i < 25; i++) {
+            filtre5[i] = 0;
+        }
+        filtre5[10] = filtre5[11] = -1;
+        filtre5[12] = 2;
+        filtres5x5(view);
+        afegir_botons_aplicar_filtre(view);
+    }
 
-        mitjana5();
-       /* for (int i = 1; i < copia.getWidth()-1; ++i) {
-            for (int j = 1; j < copia.getHeight()-1; ++j) {
+    public void random(View view) {
+        for (int i = 0; i < 24; i++) {
+            filtre5[i] = rand.nextFloat() * 4 - 2;
+        }
+        filtres5x5(view);
+        afegir_botons_aplicar_filtre(view);
+    }
 
-                copia.setPixel(i, j, Color.rgb(outr, outg, outb));
-            }
-        }*/
+    public void filtres3x3(View view) {
+        out = copia.copy(copia.getConfig(), true);
+        rs = RenderScript.create(getApplicationContext());
+        filtre3 = ScriptIntrinsicConvolve3x3.create(rs, Element.U8_4(rs));
+        filtre3.setCoefficients(filtre);
+        allin = createFromBitmap(rs, copia);
+        allout = createFromBitmap(rs, out);
+        filtre3.setInput(allin);
+        filtre3.forEach(allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        rs.destroy();
+    }
+
+    public void filtres5x5(View view) {
+        out = copia.copy(copia.getConfig(), true);
+        rs = RenderScript.create(getApplicationContext());
+        filtre5x5 = ScriptIntrinsicConvolve5x5.create(rs, Element.U8_4(rs));
+        filtre5x5.setCoefficients(filtre5);
+        allin = createFromBitmap(rs, copia);
+        allout = createFromBitmap(rs, out);
+        filtre5x5.setInput(allin);
+        filtre5x5.forEach(allout);
+        allout.copyTo(out);
+        imageView.setImageBitmap(out);
+        rs.destroy();
     }
 
     @Override
@@ -179,19 +348,18 @@ public class activity_filtres extends ActionBarActivity {
         setContentView(R.layout.activity_filtres);
         Bundle bundle = getIntent().getExtras();
         path = bundle.getString("path");
-        original = (BitmapFactory.decodeFile(path));
-        copia = original.copy(original.getConfig(), true);
+        anterior = (BitmapFactory.decodeFile(path));
+        copia = anterior.copy(anterior.getConfig(), true);
         imageView = (ImageView) findViewById(R.id.photo_back);
         imageView.setImageBitmap(copia);
+        mlay2.setVisibility(View.GONE);
+        mlay2.setClickable(false);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_filtres, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -200,12 +368,11 @@ public class activity_filtres extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.desfer:
+                enrere_filtre();
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

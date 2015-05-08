@@ -68,7 +68,6 @@ public class MainActivity extends ActionBarActivity {
 
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             bitmapOptions);
-
                     String path = android.os.Environment
                             .getExternalStorageDirectory()
                             + File.separator

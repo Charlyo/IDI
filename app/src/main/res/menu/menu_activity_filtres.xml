@@ -2,6 +2,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.carles.filtr.activity_filtres">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item
+        android:id="@+id/boto_guardar"
+        android:icon="@drawable/abc"
+        android:title="Guardar"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/desfer"
+        android:icon="@drawable/enrere"
+        android:title="Desfer"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/Sobre"
+        android:title="Sobre" />
+
+    <item
+        android:id="@+id/Ajuda"
+        android:title="Ajuda" />
+
 </menu>
