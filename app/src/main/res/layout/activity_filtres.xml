@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,14 +8,15 @@
         android:id="@+id/photo_back"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:onClick="desapareixbutons" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
-        android:layout_alignParentBottom="true">>
+        android:layout_alignParentBottom="true">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/linearbutons"
@@ -26,99 +27,127 @@
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/original"
                 android:onClick="original"
-                android:text="@string/original" />
+                android:text="@string/original"
+                android:textColor="#000000" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/grey"
                 android:onClick="greyscale"
-                android:text="@string/Greyscale" />
+                android:text="@string/Greyscale"
+                android:textColor="#000000" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/bgr"
+                android:onClick="BGR"
+                android:text="BGR"
+                android:textColor="#000000" />
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/black"
                 android:onClick="blackandwhite"
-                android:text="@string/Bandw" />
-
+                android:text="Blanc  i  Negre"
+                android:textColor="#000000" />
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/polaroid"
                 android:onClick="polarid"
-                android:text="@string/polaroidcolor" />
+                android:text="@string/polaroidcolor"
+                android:textColor="#000000" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/sepia"
                 android:onClick="sepia"
-                android:text="@string/Sepia" />
+                android:text="@string/Sepia"
+                android:textColor="#000000" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/invert"
                 android:onClick="invert"
                 android:text="@string/invert" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/emboos"
                 android:onClick="emboss"
                 android:text="@string/Emboss" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/sharpen"
                 android:onClick="sharpen"
-                android:text="@string/Sharpen" />
+                android:text="@string/Sharpen"
+                android:textColor="#000000" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/edge_detection"
                 android:onClick="edgedetection"
                 android:text="@string/EdgeDetection" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/mitjana"
                 android:onClick="meanfilter"
-                android:text="@string/meanfiltre" />
+                android:text="@string/meanfiltre"
+                android:textColor="#000000" />
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/random3"
                 android:onClick="random"
                 android:text="@string/Random" />
-
             <Button
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/blur"
                 android:onClick="Blur"
-                android:text="@string/blur" />
+                android:text="@string/blur"
+                android:textColor="#000000" />
 
         </LinearLayout>
     </HorizontalScrollView>
@@ -128,17 +157,18 @@
         android:id="@+id/linearLayoutaplicarfiltre"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_above="@+id/horizontalScrollView"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true">
+
 
         <Button
             android:id="@+id/boto_filtre_rebutjar"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_alignParentEnd="true"
             android:layout_weight="1"
             android:background="#CC0000"
             android:onClick="desfes_filtre"
@@ -149,11 +179,12 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_alignParentEnd="true"
             android:layout_weight="1"
             android:background="#669900"
             android:onClick="treure_botons_aplicar_filtre"
             android:text="@string/Acceptar" />
+
     </LinearLayout>
 
 </RelativeLayout>

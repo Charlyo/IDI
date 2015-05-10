@@ -1,36 +1,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.carles.filtr.activity_validate">
 
     <ImageView
         android:id="@+id/viewImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
      />
     
     <Button
         android:id="@+id/accept_photo_in"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginTop="430dp"
-        android:onClick="swapfilter"
         android:layout_marginStart="200dp"
+        android:layout_marginTop="430dp"
         android:background="@drawable/accept_photo_in"
+        android:onClick="swapfilter"
     />
     
     <Button
         android:id="@+id/reject_photo_in"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginTop="430dp"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="430dp"
         android:background="@drawable/reject_photo_in"
+        android:onClick="back_to_main"
     />
 
 </RelativeLayout>

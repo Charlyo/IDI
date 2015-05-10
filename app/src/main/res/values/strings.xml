@@ -31,4 +31,8 @@
     <string name="meanfiltre">Filtre mitjana</string>
     <string name="Acceptar">Acceptar</string>
     <string name="Rebutjar">Rebutjar</string>
+    <string name="title_activity_activity__guardar">Activity_Guardar</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_guardar">guardar</string>
 </resources>

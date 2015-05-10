@@ -49,4 +49,8 @@ public class activity_validate extends ActionBarActivity {
         intent.putExtra("path", path);
         startActivity(intent);
     }
+
+    public void back_to_main(View view) {
+        finish();
+    }
 }

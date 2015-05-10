@@ -69,9 +69,7 @@ public class MainActivity extends ActionBarActivity {
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             bitmapOptions);
                     String path = android.os.Environment
-                            .getExternalStorageDirectory()
-                            + File.separator
-                            + "DCIM" + File.separator + "Camera";
+                            .getExternalStorageDirectory().toString();
                     File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
                     try {
                         OutputStream outFile = new FileOutputStream(file);
