@@ -35,7 +35,7 @@ public class activity_filtres extends ActionBarActivity {
     float[] filtre;
     float[] filtre5;
     ImageView imageView;
-    LinearLayout mlay2;
+    LinearLayout mlay2, mlay;
     Matrix4f kernelcolor;
     Random rand;
     RenderScript rs;
@@ -195,7 +195,7 @@ public class activity_filtres extends ActionBarActivity {
     }
 
     public void desapareixbutons(View view) {
-        LinearLayout mlay = (LinearLayout) findViewById(R.id.linearbutons);
+        mlay = (LinearLayout) findViewById(R.id.linearbutons);
         if (butons_actius) {
             mlay.setVisibility(View.GONE);
             butons_actius = false;
@@ -251,13 +251,13 @@ public class activity_filtres extends ActionBarActivity {
         }
     }
 
-    public void guardar_bitmap() {
+    public void guardar_bitmap() {/*
         ByteArrayOutputStream bitmap_guardar = new ByteArrayOutputStream();
         actual.compress(Bitmap.CompressFormat.JPEG, 85, bitmap_guardar);
         byte[] arraybyte = bitmap_guardar.toByteArray();
         Intent guardar = new Intent(activity_filtres.this, activity_guardar.class);
         guardar.putExtra("imatge", arraybyte);
-        startActivity(guardar);
+        startActivity(guardar);*/
     }
 
     public void Blur(View view) {
@@ -386,12 +386,15 @@ public class activity_filtres extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filtres);
+        Bundle bundle = getIntent().getExtras();
+        path = bundle.getString("path");
+        imageView = (ImageView) findViewById(R.id.photo_back);
+        mlay = (LinearLayout) findViewById(R.id.linearbutons);
+        mlay2 = (LinearLayout) findViewById(R.id.linearLayoutaplicarfiltre);
         if (savedInstanceState != null) {
-            //Bundle bundle = getIntent().getExtras();
-            //path = bundle.getString("path");
-            anterior = savedInstanceState.getParcelable("anterior");
-            pre_filtre = savedInstanceState.getParcelable("pre_filtre");
             actual = savedInstanceState.getParcelable("actual");
+            pre_filtre = savedInstanceState.getParcelable("pre_filtre");
+            anterior = savedInstanceState.getParcelable("anterior");
             filtre = new float[9];
             filtre5 = new float[25];
             rand = new Random();
@@ -400,7 +403,7 @@ public class activity_filtres extends ActionBarActivity {
             enrere_actiu = savedInstanceState.getBoolean("enrere_actiu");
             primer_filtre = savedInstanceState.getBoolean("primer_filtre");
             butons_actius = savedInstanceState.getBoolean("butons_actius");
-            butons_aplicar_actius = savedInstanceState.getBoolean("butons_aplica_actius");
+            butons_aplicar_actius = savedInstanceState.getBoolean("butons_aplicar_actius");
             float[] coloraux = savedInstanceState.getFloatArray("kernelcolor");
             kernelcolor = new Matrix4f();
             for (int i = 0; i < 4; i++) {
@@ -409,21 +412,27 @@ public class activity_filtres extends ActionBarActivity {
                 }
             }
             imageView.setImageBitmap(actual);
-
+            if(!butons_actius) {
+                mlay.setVisibility(View.GONE);
+                mlay.setClickable(false);
+                mlay2.setClickable(false);
+                mlay2.setVisibility(View.GONE);
+            }
+            if (!butons_aplicar_actius) {
+                mlay2.setClickable(false);
+                mlay2.setVisibility(View.GONE);
+            }
         } else {
-            Bundle bundle = getIntent().getExtras();
             butons_actius = true;
             butons_aplicar_actius = false;
             filtre = new float[9];
             filtre5 = new float[25];
-            mlay2 = (LinearLayout) findViewById(R.id.linearLayoutaplicarfiltre);
             kernelcolor = new Matrix4f();
             rand = new Random();
             path = bundle.getString("path");
             pre_filtre = (BitmapFactory.decodeFile(path));
             anterior = (BitmapFactory.decodeFile(path));
             actual = (BitmapFactory.decodeFile(path));
-            imageView = (ImageView) findViewById(R.id.photo_back);
             imageView.setImageBitmap(pre_filtre);
             mlay2.setVisibility(View.GONE);
             mlay2.setClickable(false);
